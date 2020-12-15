@@ -1,6 +1,5 @@
-plugins {
-    id 'application'
-}
+apply plugin: 'application'
+apply plugin: 'java'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -21,9 +20,20 @@ dependencies {
 }
 
 application {
-    mainClass = 'xyz.hardliner.paper-rock-scissors.App'
+    mainClass = 'xyz.hardliner.paperRockScissors.App'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'xyz.hardliner.paperRockScissors.App'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
