@@ -9,16 +9,16 @@ public class Host {
 
     private static final Logger LOG = LoggerFactory.getLogger(Host.class);
 
-    private final CommandLineInteractor commandLineInteractor;
+    private final PlayerInteractor playerInteractor;
     private final VictoryResolver victoryResolver;
     private final ChoiceGenerator choiceGenerator;
     private final ScoreCounter scoreCounter;
 
-    public Host(CommandLineInteractor commandLineInteractor,
+    public Host(PlayerInteractor playerInteractor,
                 VictoryResolver victoryResolver,
                 ChoiceGenerator choiceGenerator,
                 ScoreCounter scoreCounter) {
-        this.commandLineInteractor = commandLineInteractor;
+        this.playerInteractor = playerInteractor;
         this.victoryResolver = victoryResolver;
         this.choiceGenerator = choiceGenerator;
         this.scoreCounter = scoreCounter;
@@ -33,21 +33,21 @@ public class Host {
         var endOfMatch = false;
 
         do {
-            final var playerToken = commandLineInteractor.askForToken();
+            final var playerToken = playerInteractor.askForToken();
             final var computerToken = choiceGenerator.makeChoice();
-            commandLineInteractor.printComputerToken(computerToken);
+            playerInteractor.printComputerToken(computerToken);
 
             final var gameResult = victoryResolver.resolveGame(playerToken, computerToken);
 
             if (gameResult == GameResult.LEFT_WINS) {
                 endOfMatch = scoreCounter.playerWins();
-                commandLineInteractor.printPlayerWin(endOfMatch, scoreCounter);
+                playerInteractor.printPlayerWin(endOfMatch, scoreCounter);
             } else if (gameResult == GameResult.RIGHT_WINS) {
                 endOfMatch = scoreCounter.computerWins();
-                commandLineInteractor.printComputerWin(endOfMatch, scoreCounter);
+                playerInteractor.printComputerWin(endOfMatch, scoreCounter);
             } else {
                 scoreCounter.logDraw();
-                commandLineInteractor.printDraw(scoreCounter);
+                playerInteractor.printDraw(scoreCounter);
             }
         } while (!endOfMatch);
     }

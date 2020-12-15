@@ -11,7 +11,7 @@ import static xyz.hardliner.paperRockScissors.domain.Token.PAPER;
 import static xyz.hardliner.paperRockScissors.domain.Token.ROCK;
 import static xyz.hardliner.paperRockScissors.domain.Token.SCISSORS;
 
-class VictoryResolverTest {
+public class VictoryResolverTest {
 
     private final VictoryResolver sut = new VictoryResolver();
 
@@ -31,7 +31,7 @@ class VictoryResolverTest {
     }
 
     @Test
-    public void shouldThrowIllegalArgumentException() {
+    public void shouldNotResolveGame() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> sut.resolveGame(PAPER, null));
     }
 
