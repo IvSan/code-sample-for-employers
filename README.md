@@ -1,6 +1,7 @@
 # Paper, Rock & Scissors 
 
-Home assignment for IMC.  
+Home assignment for unnamed company.  
+The task is to create CLI based Paper-Rock-Scissors game.  
 MVP product based on my own assumptions about desired implementation.
 
 ## Requirements
